@@ -5,10 +5,11 @@ public class Main {
         point.x = 5.6F;
         point.y = 2.4F;
 
-        Point p2 = new Point();
-        p2.x = 150F;
-        p2.y = 213.7F;
-        System.out.println(p2.toSvg());
+        System.out.println(point.toSvg());
+        point.translate(4.3f, 8.4f);
+        System.out.println(point.toSvg());
 
+        Point point3=point.translated(7.8f, 2.9f);
+        System.out.println(point3.toSvg());
     }
 }
