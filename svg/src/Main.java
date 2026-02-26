@@ -11,5 +11,10 @@ public class Main {
 
         Point point3=point.translated(7.8f, 2.9f);
         System.out.println(point3.toSvg());
+
+        Segment segment = new Segment();
+        segment.p = point;
+        segment.q = point3;
+        System.out.println(segment.length());
     }
 }
