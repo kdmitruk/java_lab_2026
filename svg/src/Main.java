@@ -16,5 +16,16 @@ public class Main {
         segment.p = point;
         segment.q = point3;
         System.out.println(segment.length());
+        Segment[] segements = new Segment[5];
+
+
+    }
+    public static float findMax(Segment[] segments){
+        float max = segements[0].length();
+        for(Segment s : segments){
+            if(max>s.length())
+                max=s.length();
+        }
+        return max;
     }
 }
