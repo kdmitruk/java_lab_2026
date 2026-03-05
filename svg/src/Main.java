@@ -9,6 +9,6 @@ public class Main {
 
         Polygon polygon = new Polygon(points);
 
-        System.out.println(polygon);
+        System.out.println(polygon.toSvg());
     }
 }
