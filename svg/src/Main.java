@@ -1,10 +1,7 @@
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world");
-        Point point = new Point();
-        point.x = 5.6F;
-        point.y = 2.4F;
-
+        Point point = new Point(5.6f, 4.8f);
         System.out.println(point.toSvg());
         point.translate(4.3f, 8.4f);
         System.out.println(point.toSvg());
@@ -20,6 +17,7 @@ public class Main {
 
 
     }
+    /*
     public static float findMax(Segment[] segments){
         float max = segements[0].length();
         for(Segment s : segments){
@@ -28,4 +26,5 @@ public class Main {
         }
         return max;
     }
+    */
 }
