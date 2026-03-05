@@ -17,11 +17,11 @@ public class Main {
                 new Point(2.3F, 8.6F),
                 new Point(5.3F, 10.6F)
         });
-        SvgScene svg=new SvgScene();
-        svg.addPolygon(polygon);
-        svg.addPolygon(polygon2);
-        svg.addPolygon(polygon3);
-        svg.addPolygon(polygon3);
-        System.out.println(polygon.toSvg());
+        SvgScene scene=new SvgScene();
+        scene.addPolygon(polygon);
+        scene.addPolygon(polygon2);
+        //scene.addPolygon(polygon3);
+        //svg.addPolygon(polygon3);
+        System.out.println(scene.toSvg());
     }
 }
