@@ -1,30 +1,15 @@
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world");
-        Point point = new Point(5.6f, 4.8f);
-        System.out.println(point.toSvg());
-        point.translate(4.3f, 8.4f);
-        System.out.println(point.toSvg());
+        Point p1 = new Point(3,6);
+        Point p2 = new Point(2,7);
+        Segment s1 = new Segment(new Point(p1),p2);
 
-        Point point3=point.translated(7.8f, 2.9f);
-        System.out.println(point3.toSvg());
+        System.out.println(s1);
+        p1.setX(5);
+        System.out.println(p1);
+        System.out.println(s1);
 
-        Segment segment = new Segment();
-        segment.p = point;
-        segment.q = point3;
-        System.out.println(segment.length());
-        Segment[] segements = new Segment[5];
 
 
     }
-    /*
-    public static float findMax(Segment[] segments){
-        float max = segements[0].length();
-        for(Segment s : segments){
-            if(max>s.length())
-                max=s.length();
-        }
-        return max;
-    }
-    */
 }
