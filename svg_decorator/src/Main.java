@@ -2,11 +2,19 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        TransformationDecorator triangle = new TransformationDecorator(new Polygon(new Vec2[]{
-                new Vec2(0, 0),
-                new Vec2(300, 0),
-                new Vec2(150, 250)
-        }), new Vec2(45, 105));
+        TransformationDecorator triangle = new TransformationDecorator.Builder(
+                new Polygon(
+                        new Vec2[]{
+                                new Vec2(0, 0),
+                                new Vec2(300, 0),
+                                new Vec2(150, 250)
+                        })).build();
+
+//        TransformationDecorator triangle = new TransformationDecorator(new Polygon(new Vec2[]{
+//                new Vec2(0, 0),
+//                new Vec2(300, 0),
+//                new Vec2(150, 250)
+//        }), new Vec2(45, 105), new Vec2(0.0, 0.0),45.0);
 
         SolidFillShapeDecorator rectangle =
                 new SolidFillShapeDecorator(new Polygon(new Vec2[]{

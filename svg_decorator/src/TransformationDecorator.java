@@ -1,12 +1,11 @@
 import java.util.Locale;
 
 public class TransformationDecorator extends ShapeDecorator{
-    private String transform;
+    private final String transform;
 
-    public TransformationDecorator(Shape decoratedShape, Vec2 translation) {
+    public TransformationDecorator(Shape decoratedShape, String transform) {
         super(decoratedShape);
-        Builder builder = new Builder().translate(translation);
-        transform = builder.build();
+        this.transform = transform;
     }
 
     @Override
@@ -16,24 +15,28 @@ public class TransformationDecorator extends ShapeDecorator{
     }
 
     public static class Builder{
+        private Shape base;
+        private String result = "";
 
-        private Vec2 translation;
-        private double rotation;
-        private Vec2 scale;
+        public Builder(Shape base) {
+            this.base = base;
+        }
 
         public Builder translate(Vec2 translation){
-            this.translation = translation;
+            result += String.format(Locale.ENGLISH,
+                    " translate(%f %f)",
+                    translation.x(), translation.y());
+            return this;
+        }
+        public Builder rotate(double rotation, Vec2 center){
+            result += String.format(Locale.ENGLISH,
+                    " rotate(%f %f %f)",
+                    rotation, center.x(), center.y());
             return this;
         }
 
-        public String build(){
-            String result = "";
-            if (translation != null) {
-                result = String.format(Locale.ENGLISH,
-                        " translate(%f %f)",
-                        translation.x(), translation.y());
-            }
-            return result;
+        public TransformationDecorator build(){
+            return new TransformationDecorator(base, result);
         }
 
     }
