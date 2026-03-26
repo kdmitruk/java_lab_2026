@@ -1,7 +1,5 @@
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Person {
     private final String  firstName;
@@ -30,4 +28,39 @@ public class Person {
         if (child == this) return false;
         return children.add(child);
     }
+/*
+    public Person getYoungestChild() {
+        if (this.children.isEmpty()) {
+            return null;
+        }
+        Iterator<Person> iter = this.children.iterator();
+        Person now = iter.next();
+        Person youngest = now;
+        while (true) {
+            if (youngest.birthday.compareTo(now.birthday)>0) {
+                youngest=now;
+            }
+            try {
+                now = iter.next();
+            } catch (NoSuchElementException e) {
+                break;
+            }
+        }
+        return youngest;
+    }
+
+ */
+
+    public Person getYoungestChild() {
+        if (this.children.isEmpty()) {
+            return null;
+        }
+        Person youngest = children.iterator().next();
+        for(Person person: children) {
+            if(youngest.birthday.compareTo(person.birthday)>0)
+                youngest = person;
+        }
+        return youngest;
+    }
+
 }

@@ -12,9 +12,9 @@ public class Main {
             Person parent = people.get(0);
             Person child = people.get(1);
             System.out.println(parent.adopt(child));
-            System.out.println(parent.adopt(parent));
+            System.out.println(parent.adopt(people.get(2)));
+            System.out.println(parent.getYoungestChild());
         }
-        System.out.println(people);
 
 
 
