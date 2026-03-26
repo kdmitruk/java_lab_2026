@@ -17,8 +17,12 @@ public class Main {
 
         System.out.println(parent.getChildren());
 
-
-
+        Family family = new Family();
+        for(Person person: people) {
+            family.add(person);
+        }
+        Person mike = family.get("Mike Tyson");
+        System.out.println(mike);
 
     }
 }

@@ -76,6 +76,10 @@ public class Person implements Comparable<Person> {
         //return result;
     }
 
+    public String name() {
+        return String.format("%s %s",firstName, lastName);
+    }
+
     @Override
     public int compareTo(Person other) {
         return this.birthday.compareTo(other.birthday);
