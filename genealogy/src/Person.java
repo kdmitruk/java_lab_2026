@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 import java.util.*;
 
-public class Person {
+public class Person implements Comparable<Person> {
     private final String  firstName;
     private final String lastName;
     private final LocalDate birthday;
@@ -57,10 +57,14 @@ public class Person {
         }
         Person youngest = children.iterator().next();
         for(Person person: children) {
-            if(youngest.birthday.compareTo(person.birthday)>0)
+            if(youngest.compareTo(person)>0)
                 youngest = person;
         }
         return youngest;
     }
 
+    @Override
+    public int compareTo(Person other) {
+        return this.birthday.compareTo(other.birthday);
+    }
 }
