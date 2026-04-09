@@ -38,8 +38,14 @@ public class Person implements Comparable<Person> {
         file.readLine();
         while((line = file.readLine())!=null){
             try {
-                people.add(fromCsvLine(line));
-            } catch (NegativeLifespanException e) {
+                Person newperson = fromCsvLine(line);
+                for(Person person: people){
+                    if(person.name().equals(newperson.name())){
+                        throw new AmbiguousPersonException(person, newperson);
+                    }
+                }
+                people.add(newperson);
+            } catch (NegativeLifespanException | AmbiguousPersonException e) {
                 System.err.println(e.getMessage());
             }
         }
