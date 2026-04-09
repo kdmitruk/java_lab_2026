@@ -13,16 +13,21 @@ public class Person implements Comparable<Person> {
     private final LocalDate birthday;
     private final LocalDate death;
 
+
     private final Set<Person> children = new HashSet<>();
 
-    public Person(String firstName, String lastName, LocalDate birthday, LocalDate death) {
+    public Person(String firstName, String lastName, LocalDate birthday, LocalDate death) throws NegativeLifespanException {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthday = birthday;
         this.death = death;
+        if(this.death !=null && this.birthday.isAfter(this.death)){
+            throw new NegativeLifespanException(this);
+        }
     }
 
-    public Person(String firstName, String lastName, LocalDate birthday) {
+
+    public Person(String firstName, String lastName, LocalDate birthday) throws NegativeLifespanException {
         this(firstName, lastName, birthday, null);
     }
 
@@ -32,13 +37,17 @@ public class Person implements Comparable<Person> {
         String line;
         file.readLine();
         while((line = file.readLine())!=null){
-            people.add(fromCsvLine(line));
+            try {
+                people.add(fromCsvLine(line));
+            } catch (NegativeLifespanException e) {
+                System.err.println(e.getMessage());
+            }
         }
         file.close();
         return people;
     }
 
-    public static Person fromCsvLine(String line){
+    public static Person fromCsvLine(String line) throws NegativeLifespanException {
         String[] columns = line.split(",", -1);
         String fullname= columns[0];
         String[] name = fullname.split(" ");
@@ -135,5 +144,10 @@ public class Person implements Comparable<Person> {
     @Override
     public int compareTo(Person other) {
         return this.birthday.compareTo(other.birthday);
+    }
+
+    String negativeLifespanExceptionMessage(){
+        return String.format("Osoba %s %s ma datę śmierci %s wcześniejszą niż datę urodzenia %s",
+                this.firstName, this.lastName, this.death, this.birthday);
     }
 }
