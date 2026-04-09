@@ -1,5 +1,10 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 
 public class Person implements Comparable<Person> {
@@ -21,6 +26,18 @@ public class Person implements Comparable<Person> {
         this(firstName, lastName, birthday, null);
     }
 
+    public static List<Person> fromCsv(String path) throws IOException {
+        ArrayList<Person> people = new ArrayList<>();
+        BufferedReader file =new BufferedReader(new FileReader(path));
+        String line;
+        file.readLine();
+        while((line = file.readLine())!=null){
+            people.add(fromCsvLine(line));
+        }
+        file.close();
+        return people;
+    }
+
     public static Person fromCsvLine(String line){
         String[] columns = line.split(",", -1);
         String fullname= columns[0];
@@ -31,11 +48,20 @@ public class Person implements Comparable<Person> {
         String death=columns[2];
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d.M.y");
         LocalDate birthdate = LocalDate.parse(birth, formatter);
-        LocalDate deathdate = null;
-        if(!death.isEmpty()){
-            deathdate = LocalDate.parse(death, formatter);
+
+//        LocalDate deathdate = null;
+//        if(!death.isEmpty()){
+//            deathdate = LocalDate.parse(death, formatter);
+//        }
+//        return new Person(fname, lname, birthdate, deathdate);
+
+        try {
+            LocalDate deathdate = LocalDate.parse(death, formatter);
+            return new Person(fname, lname, birthdate, deathdate);
         }
-        return new Person(fname, lname, birthdate, deathdate);
+        catch (DateTimeParseException ignored) {
+            return new Person(fname, lname, birthdate);
+        }
     }
 
     @Override
