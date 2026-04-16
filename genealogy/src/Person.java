@@ -32,25 +32,26 @@ public class Person implements Comparable<Person> {
     }
 
     public static List<Person> fromCsv(String path) throws IOException {
-        ArrayList<Person> people = new ArrayList<>();
+        Map<String, PersonWithParentStrings> people = new HashMap<>();
         BufferedReader file =new BufferedReader(new FileReader(path));
         String line;
         file.readLine();
         while((line = file.readLine())!=null){
             try {
-                Person newperson = fromCsvLine(line);
-                for(Person person: people){
+                PersonWithParentStrings newperson = PersonWithParentStrings.fromCsvLine(line);
+                /*for(PersonWithParentStrings person: people){
                     if(person.name().equals(newperson.name())){
                         throw new AmbiguousPersonException(person, newperson);
                     }
-                }
-                people.add(newperson);
-            } catch (NegativeLifespanException | AmbiguousPersonException e) {
+                }*/
+                people.put(newperson.name(), newperson);
+            } catch (NegativeLifespanException/* | AmbiguousPersonException*/ e) {
                 System.err.println(e.getMessage());
             }
         }
         file.close();
-        return people;
+        PersonWithParentStrings.connectRelatives(people);
+        return PersonWithParentStrings.unpackMap(people);
     }
 
     public static Person fromCsvLine(String line) throws NegativeLifespanException {
