@@ -17,5 +17,10 @@ public class Main {
        } catch (ClassNotFoundException e) {
           throw new RuntimeException(e);
       }
+        PlantUMLRunner.setJarPath("/home/student/Pobrane/plantuml-1.2026.2.jar");
+        PlantUMLRunner.generate("@startuml\n" +
+                "Alice->Bob : Hello\n" +
+                "return ok\n" +
+                "@enduml", "output", "test");
     }
 }
