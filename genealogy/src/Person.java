@@ -3,6 +3,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Person implements Comparable<Person>, Serializable {
     private final String  firstName;
@@ -166,5 +167,18 @@ public class Person implements Comparable<Person>, Serializable {
         List<Person> people = (ArrayList<Person>) ois.readObject();
         ois.close();
         return people;
+    }
+
+    public static String generateTree(List<Person> people){
+        Set<Person> objects = new HashSet<>();
+        for (Person person: people){
+            objects.add(person);
+            objects.addAll(person.children);
+        }
+        String objectsString = objects.stream()
+                .map(person -> String.format("object \"%s\"" ,person.name()))
+                .collect(Collectors.joining("\n"));
+
+        return String.format("@startuml\n%s\n@enduml", objectsString);
     }
 }
