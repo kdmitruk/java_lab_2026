@@ -26,10 +26,14 @@ public class Main {
         sorted.stream()
                 .map(Person::name)
                 .forEach(System.out::println);*/
-        List<Person> sortedDeath = Person.getDeceasedByLifespan(people);
+        /*List<Person> sortedDeath = Person.getDeceasedByLifespan(people);
         sortedDeath.stream()
                 .map(Person::name)
-                .forEach(System.out::println);
+                .forEach(System.out::println);*/
+        System.out.println();
+        Person p = Person.getOldestLiving(people);
+        System.out.println(p);
+
 
     }
 }
