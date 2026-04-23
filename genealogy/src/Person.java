@@ -202,5 +202,15 @@ public class Person implements Comparable<Person>, Serializable {
         return people.stream().sorted().toList();
 //        return people.stream().sorted(Comparator.comparing(p -> p.birthday)).toList();
     }
+    public long lifespan(){
+        if(death == null) return -1;
+        return java.time.temporal.ChronoUnit.DAYS.between(birthday,death);
+    }
+    public static List<Person> getDeceasedByLifespan(List<Person> people){
+        return people.stream()
+                .filter(person -> person.death != null)
+                .sorted(Comparator.comparingLong(Person::lifespan).reversed())
+                .toList();
+    }
 
 }
