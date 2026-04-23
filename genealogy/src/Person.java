@@ -179,6 +179,17 @@ public class Person implements Comparable<Person>, Serializable {
                 .map(person -> String.format("object \"%s\"" ,person.name()))
                 .collect(Collectors.joining("\n"));
 
-        return String.format("@startuml\n%s\n@enduml", objectsString);
+//        StringBuilder relationsStringBuffer = new StringBuilder();
+//        for (Person person: people) {
+//            for (Person child: person.getChildren()) {
+//                relationsStringBuffer.append(String.format("\"%s\" <|-- \"%s\"\n",person.name(),child.name()));
+//            }
+//        }
+        String relationsString = objects.stream()
+                .flatMap(parent -> parent.getChildren().stream()
+                        .map(child -> String.format("\"%s\" <|-- \"%s\"\n",parent.name(),child.name())))
+                .collect(Collectors.joining("\n"));
+
+        return String.format("@startuml\n%s\n%s\n@enduml", objectsString, relationsString);
     }
 }
