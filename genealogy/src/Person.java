@@ -192,4 +192,9 @@ public class Person implements Comparable<Person>, Serializable {
 
         return String.format("@startuml\n%s\n%s\n@enduml", objectsString, relationsString);
     }
+    public static List<Person> filterPersonBySubstring(List<Person> people, String substring){
+        return people.stream()
+                .filter(person -> person.name().contains(substring))
+                .collect(Collectors.toList());
+    }
 }

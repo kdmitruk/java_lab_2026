@@ -20,6 +20,10 @@ public class Main {
       }*/
         PlantUMLRunner.setJarPath("plantuml-1.2026.2.jar");
         PlantUMLRunner.generate(Person.generateTree(people),"output", "test");
-
+        List<Person> filtered = Person.filterPersonBySubstring(people, "ska");
+        //System.out.println(filtered);
+        filtered.stream()
+                .map(Person::name)
+                .forEach(System.out::println);
     }
 }
