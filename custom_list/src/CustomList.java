@@ -45,4 +45,25 @@ public class CustomList<T> {
         head = head.next;
         return current.value;
     }
+
+    public T removeLast(){
+        if (head == null) {
+            throw new NoSuchElementException();
+        }
+        Node<T> current = head;
+        if (head == tail){
+            head=null;
+            tail=null;
+            return current.value;
+        } else {
+            while (current.next != tail){
+                current = current.next;
+            }
+            current.next = null;
+            T result = tail.value;
+            tail = current;
+            return result;
+        }
+    }
+
 }
