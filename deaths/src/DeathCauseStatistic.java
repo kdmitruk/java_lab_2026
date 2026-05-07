@@ -9,7 +9,19 @@ public class DeathCauseStatistic {
         this.code = code;
     }
 
+    public static record AgeBracketDeaths(int begin, int end, int deathCount) {};
+
+    public String getCode() {
+        return code;
+    }
+
     public static record Range(int begin, int end){}
+
+    public AgeBracketDeaths getAge(int age) {
+        int begin = Math.floorDiv(age,5)*5;
+        int end = begin + 4;
+        return new AgeBracketDeaths(begin, end, deaths.get(new Range(begin, end)));
+    }
 
     public static DeathCauseStatistic fromCsvLine(String line){
         String[] data = line/*.replace("-", "0")*/.split(",");
