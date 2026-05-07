@@ -25,6 +25,8 @@ public class Main {
             System.out.println(list.get(i));
 
         for (String s : list) System.out.println(s);
-
+        list.stream().sorted().forEach(System.out::println);
     }
+
+
 }
