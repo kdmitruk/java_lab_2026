@@ -17,4 +17,14 @@ public class DeathCauseStatisticList {
         }
         return result;
     }
+
+    public List<DeathCauseStatistic> mostDeadlyDiseases(int age, int n){
+        return statistics.stream()
+                .sorted((stat1, stat2) ->
+                    Integer.compare(stat2.getAge(age).deathCount(), stat1.getAge(age).deathCount())
+                ).limit(n).toList();
+
+
+
+    }
 }
