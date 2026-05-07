@@ -1,0 +1,20 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
+
+public class DeathCauseStatisticList {
+    private List<DeathCauseStatistic> statistics;
+    public static DeathCauseStatisticList fromCsv(Path path){
+        DeathCauseStatisticList result = new DeathCauseStatisticList();
+        try {
+            result.statistics=Files.lines(path)
+                    .skip(1)
+                    .map(DeathCauseStatistic::fromCsvLine)
+                    .toList();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
+}
