@@ -4,8 +4,8 @@ public class Main {
     public static void main(String[] args) {
         DeathCauseStatisticList statistics = DeathCauseStatisticList.fromCsv(Path.of("zgony.csv"));
         ICDCodeTabular icd = new ICDCodeTabularOptimizedForTime(Path.of("icd10.txt"));
-        int age = 60;
-        statistics.mostDeadlyDiseases(age, 1000).stream()
+        int age = 20;
+        statistics.mostDeadlyDiseases(age, 10).stream()
                 .forEach(stat -> System.out.println(
                         stat.getCode() + "\t" + stat.getAge(age).deathCount() + "\t" + icd.getDescription(stat.getCode())
                 ));
