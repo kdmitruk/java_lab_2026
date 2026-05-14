@@ -23,4 +23,8 @@ public class DatabaseConnection {
     public void connect(String path) throws SQLException {
         connection = DriverManager.getConnection("jdbc:sqlite:"+path);
     }
+
+    public void disconnect() throws SQLException {
+        connection.close();
+    }
 }

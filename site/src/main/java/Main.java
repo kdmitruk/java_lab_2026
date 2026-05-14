@@ -10,7 +10,9 @@ public class Main {
         DatabaseConnection db = DatabaseConnection.getInstance();
         try {
             db.connect("users.db");
+            insert("Oleh", "Koval123");
             select();
+            db.disconnect();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -29,5 +31,20 @@ public class Main {
             String password = resultSet.getString("password");
             System.out.println("ID: " + id + " NAME: " + name + " PASSWORD: " + password);
         }
+    }
+    public static void insert(String name, String password) throws SQLException {
+        Connection connection = DatabaseConnection.getInstance().getConnection();
+        String query = "INSERT INTO account (username, password) VALUES(?,?)";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setString(1, name);
+        preparedStatement.setString(2, password);
+        preparedStatement.execute();
+        ResultSet resultSet = preparedStatement.getGeneratedKeys();
+        while (resultSet.next()) {
+            int id = resultSet.getInt(1);
+            System.out.println("CREATED ID: " + id);
+        }
+
+
     }
 }
