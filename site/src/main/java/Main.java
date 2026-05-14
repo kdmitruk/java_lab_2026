@@ -1,5 +1,8 @@
 import database.DatabaseConnection;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Main {
@@ -7,8 +10,24 @@ public class Main {
         DatabaseConnection db = DatabaseConnection.getInstance();
         try {
             db.connect("users.db");
+            select();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+
+    }
+
+    public static void select() throws SQLException {
+        Connection connection = DatabaseConnection.getInstance().getConnection();
+        String query = "SELECT *  FROM account";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.execute();
+        ResultSet resultSet = preparedStatement.getResultSet();
+        while (resultSet.next()) {
+            int id = resultSet.getInt("id");
+            String name = resultSet.getString("username");
+            String password = resultSet.getString("password");
+            System.out.println("ID: " + id + " NAME: " + name + " PASSWORD: " + password);
         }
     }
 }
