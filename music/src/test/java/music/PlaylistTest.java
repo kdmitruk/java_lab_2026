@@ -35,4 +35,19 @@ public class PlaylistTest {
         assertEquals(playlist.getFirst(), sameSong);
         assertTrue(playlist.contains(song));
     }
+
+    @Test
+    public void testAtSecond() {
+        Playlist playlist = new Playlist();
+        Song song1 = new Song("Sabaton", "Soldier of Heaven", 100);
+        Song song2 = new Song("Schwarzer Engel", "Viva la musica", 150);
+        Song song3 = new Song("Rammstein", "Spring", 200);
+        playlist.add(song1);
+        playlist.add(song2);
+        playlist.add(song3);
+        assertEquals(song1, playlist.atSecond(0));
+        assertEquals(song1, playlist.atSecond(50));
+        assertEquals(song2, playlist.atSecond(200));
+        assertEquals(song3, playlist.atSecond(300));
+    }
 }
