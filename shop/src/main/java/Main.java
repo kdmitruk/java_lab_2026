@@ -12,7 +12,7 @@ public class Main {
         DatabaseConnection db = DatabaseConnection.getInstance();
         try {
             db.connect("users.db");
-   //         AccountManager.register("Danyło", "Kozhemiakin228");
+            //         AccountManager.register("Danyło", "Kozhemiakin228");
             System.out.println(AccountManager.authenticate("Danyło", "Kozhemiakin228"));
             db.disconnect();
         } catch (SQLException e) {
