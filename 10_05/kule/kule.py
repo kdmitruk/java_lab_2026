@@ -20,6 +20,7 @@ class Game(ShowBase):
         directional.set_direction(LVector3(-1, -1, -2))
         self.render.set_light(self.render.attach_new_node(directional))
         self.draw_bounds()
+        self.draw_ball()
     def draw_bounds(self):
         lines=LineSegs()
         lines.moveTo(-Game.PLANESIZE,-Game.PLANESIZE,0)
@@ -30,6 +31,12 @@ class Game(ShowBase):
         lines.set_color(1,1,1,1)
         model=lines.create()
         self.render.attach_new_node(model)
+    def draw_ball(self):
+        self.ball = self.loader.loadModel("models/sphere.egg")
+        self.ball.reparentTo(self.render)
+        self.ball.setPos(2,0,0)
+        self.ball.setScale(0.1)
+        self.ball.setColor(1,0,0,1)
 if __name__ == '__main__':
     app = Game()
     app.run()
