@@ -10,8 +10,8 @@ public class MainWindow extends JFrame {
     private JTextField inputField;
     private JButton sendButton;
 
-    public MainWindow() {
-        this.setTitle("Chat client");
+    public MainWindow(String login) {
+        this.setTitle(login);
         this.setMinimumSize(new Dimension(800, 600));
         this.setContentPane(rootPanel);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
