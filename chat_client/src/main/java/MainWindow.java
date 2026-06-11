@@ -9,15 +9,19 @@ public class MainWindow extends JFrame {
     private JList<String> userList;
     private JTextField inputField;
     private JButton sendButton;
+    private JScrollPane chatPane;
     private final Client client;
 
     public MainWindow(String login, Client client) {
         this.setTitle(login);
-        this.setMinimumSize(new Dimension(800, 600));
+        this.setMinimumSize(new Dimension(800, 200));
         this.setContentPane(rootPanel);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
         this.client=client;
+
+        this.client.setOnMessageReceived(this::receive);
+
         sendButton.addActionListener(actionEvent -> send());
         inputField.addActionListener(actionEvent -> send());
     }
@@ -25,9 +29,15 @@ public class MainWindow extends JFrame {
         String message = inputField.getText();
         if(message.isEmpty())
             return;
-        //chatArea.append(message + '\n');
-        //inputField.setText("");
+
         client.send(message);
+    }
+
+    private void receive(String message) {
+        chatArea.append(message + '\n');
+        inputField.setText("");
+        JScrollBar vertical = chatPane.getVerticalScrollBar();
+        vertical.setValue( vertical.getMaximum() );
     }
 
 }

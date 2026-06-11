@@ -1,10 +1,17 @@
 import java.io.*;
 import java.net.Socket;
+import java.util.function.Consumer;
 
 public class Client implements Runnable{
     private final Socket socket;
     private final BufferedReader reader;
     private final PrintWriter writer;
+
+    private Consumer<String> onMessageReceived;
+
+    public void setOnMessageReceived(Consumer<String> onMessageReceived) {
+        this.onMessageReceived = onMessageReceived;
+    }
 
     public Client(String address, int port) throws IOException {
         socket = new Socket(address, port);
@@ -23,7 +30,7 @@ public class Client implements Runnable{
         String message;
         try{
             while((message = reader.readLine()) != null) {
-                System.out.println(message);
+                onMessageReceived.accept(message);
             }
         }catch(IOException e){
             throw new RuntimeException(e);
