@@ -18,7 +18,6 @@ public class Server {
         while(true) {
             Socket socket = serverSocket.accept();
             ClientHandler handler = new ClientHandler(socket, this);
-            System.out.println("Client connected");
             Thread thread = new Thread(handler);
             thread.start();
             handlers.put(handler.getLogin(),handler);
@@ -37,7 +36,7 @@ public class Server {
 
     public void broadcast(String message, ClientHandler sender) {
         handlers.values().stream()
-                .filter(receiver -> receiver != sender)
+        //        .filter(receiver -> receiver != sender)
                 .forEach(handler -> handler.send(signMessage(message, sender)));
     }
 
